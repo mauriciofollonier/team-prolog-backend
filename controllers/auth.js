@@ -110,10 +110,8 @@ const renewToken = async( req, res ) => {
 };
 
 
-
-
 module.exports = {
     createUser,
     loginUser,
-    renewToken
+    renewToken,
 }

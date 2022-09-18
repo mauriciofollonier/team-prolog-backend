@@ -15,6 +15,18 @@ const UserSchema = Schema({
     password: {
         type: String,
         required: true
+    },
+    avatar: {
+        type: String,
+        default: null
+    },
+    bio: {
+        type: String,
+        default: null
+    },
+    phoneNumber: {
+        type: Number,
+        default: null
     }
 })
 
