@@ -2,7 +2,7 @@ const User = require('../models/User');
 
 const getProfile = async( req, res ) => {
 
-    const id = req.params.userId;
+    const id = req.uid;
 
 
     try {
@@ -41,9 +41,6 @@ const updateProfile = async( req, res ) => {
 
     const userId = req.params.userId;
     const uid = req.uid;
-
-    // console.log( { uid } )
-    // console.log( { userId } )
 
     try {
 
