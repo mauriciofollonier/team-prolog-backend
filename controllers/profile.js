@@ -2,12 +2,12 @@ const User = require('../models/User');
 
 const getProfile = async( req, res ) => {
 
-    const id = req.uid;
+    const id = req.params.userId;
 
 
     try {
 
-        const user = await User.findOne({ id });
+        const user = await User.findById( id );
     
         if( !user ) {
             return res.status( 400 ).json({
@@ -19,9 +19,11 @@ const getProfile = async( req, res ) => {
         res.status( 201 ).json({
             ok: true,
             uid: user.id,
-            name: user.name,
             avatar: user.avatar,
+            name: user.name,
             bio: user.bio,
+            email: user.email,
+            password: user.password,
             phoneNumber: user.phoneNumber,
         });
         
@@ -45,7 +47,9 @@ const updateProfile = async( req, res ) => {
 
     try {
 
-        const user = await User.findOne({ userId });
+        const user = await User.findById( userId );
+
+        // console.log( { user } )
     
         if( !user ) {
             return res.status( 400 ).json({
@@ -63,15 +67,18 @@ const updateProfile = async( req, res ) => {
 
         const newProfile = {
             
-            ...req.body
+            ...req.body,
         };
+        // console.log( { newProfile } );
 
         const updatedProfile = await 
                     User.findByIdAndUpdate( 
-                        user.id, 
+                        userId, 
                         newProfile, 
                         { new: true } 
                     );
+
+        // console.log( { updatedProfile } )
     
         res.status( 201 ).json({
             ok: true,

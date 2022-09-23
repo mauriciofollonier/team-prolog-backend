@@ -5,7 +5,6 @@ const UserSchema = Schema({
 
     name: {
         type: String,
-        required: true
     },
     email: {
         type: String,
@@ -18,15 +17,12 @@ const UserSchema = Schema({
     },
     avatar: {
         type: String,
-        default: null
     },
     bio: {
         type: String,
-        default: null
     },
     phoneNumber: {
         type: Number,
-        default: null
     }
 })
 

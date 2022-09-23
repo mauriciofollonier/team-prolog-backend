@@ -9,7 +9,7 @@ const { validateJWT } = require('../middlewares/validate-jwt');
 
 
 
-router.get( '/', validateJWT, getProfile );
+router.get( '/:userId', validateJWT, getProfile );
 
 router.put( '/:userId', validateJWT, updateProfile );
 
