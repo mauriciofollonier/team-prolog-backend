@@ -1,8 +1,9 @@
 const User = require('../models/User');
+const bcrypt = require("bcryptjs");
 
 const getProfile = async( req, res ) => {
-
-    const id = req.uid;
+  
+  const id = req.uid;
 
 
     try {
@@ -46,7 +47,7 @@ const updateProfile = async( req, res ) => {
 
         const user = await User.findById( userId );
 
-        // console.log( { user } )
+      
     
         if( !user ) {
             return res.status( 400 ).json({
@@ -62,11 +63,14 @@ const updateProfile = async( req, res ) => {
             });
         }
 
-        const newProfile = {
-            
-            ...req.body,
-        };
-        // console.log( { newProfile } );
+    let { password } = { ...req.body };
+    const salt = bcrypt.genSaltSync();
+
+    const newProfile = {
+      ...req.body,
+    };
+    newProfile.password = bcrypt.hashSync(password, salt);
+        
 
         const updatedProfile = await 
                     User.findByIdAndUpdate( 
@@ -75,7 +79,7 @@ const updateProfile = async( req, res ) => {
                         { new: true } 
                     );
 
-        // console.log( { updatedProfile } )
+       
     
         res.status( 201 ).json({
             ok: true,
