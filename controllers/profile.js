@@ -12,7 +12,7 @@ const getProfile = async( req, res ) => {
         if( !user ) {
             return res.status( 400 ).json({
                 ok: false,
-                msg: 'User does not exist'
+                msg: 'El usuario no existe'
             });
         }
     
@@ -32,7 +32,7 @@ const getProfile = async( req, res ) => {
         console.log( error );
         res.status( 500 ).json({
             ok: false,
-            msg: 'Please contact admin'
+            msg: 'Por favor contacte al administrador'
         });
     };
 }
@@ -46,19 +46,17 @@ const updateProfile = async( req, res ) => {
 
         const user = await User.findById( userId );
 
-        // console.log( { user } )
-    
         if( !user ) {
             return res.status( 400 ).json({
                 ok: false,
-                msg: 'User does not exist'
+                msg: 'El usuario no existe'
             });
         }
 
         if( userId !== uid ) {
             return res.status( 401 ).json({
                 ok: false,
-                msg: 'No tiene privilegio de editar evento'
+                msg: 'No tiene privilegio de editar este perfil'
             });
         }
 
@@ -66,7 +64,6 @@ const updateProfile = async( req, res ) => {
             
             ...req.body,
         };
-        // console.log( { newProfile } );
 
         const updatedProfile = await 
                     User.findByIdAndUpdate( 
@@ -75,7 +72,6 @@ const updateProfile = async( req, res ) => {
                         { new: true } 
                     );
 
-        // console.log( { updatedProfile } )
     
         res.status( 201 ).json({
             ok: true,
@@ -87,7 +83,7 @@ const updateProfile = async( req, res ) => {
         console.log( error );
         res.status( 500 ).json({
             ok: false,
-            msg: 'Please contact admin'
+            msg: 'Por favor contacte al administrador'
         });
     };
 }
