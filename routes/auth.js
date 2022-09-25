@@ -21,10 +21,10 @@ router.post(
     '/register', 
     [ 
     // check('name', 'Name is required').not().isEmpty(),
-    check('email', 'Email should be valid').isEmail(),
+    check('email', 'Email debe ser válido.').isEmail(),
     check('password') 
-        .isLength({ min: 8 }).withMessage('Password should be greater than 5 characters')
-        .isAlphanumeric().withMessage('Password must cointain letters and numbers'),
+        .isLength({ min: 8 }).withMessage('Password debe tener al menos 8 caracteres.')
+        .isAlphanumeric().withMessage('Password debe contener letras y números.'),
 
     validateFields    
     ],       
@@ -33,8 +33,8 @@ router.post(
 router.post( 
     '/', 
     [ 
-    check('email', 'Email should be valid').isEmail(),
-    check('password', 'Password should be greater than 5 characters').isLength({ min: 8 }),
+    check('email', 'Email debe ser válido.').isEmail(),
+    check('password', 'Password debe tener al menos 8 caracteres.').isLength({ min: 8 }),
 
     validateFields
     ],
