@@ -1,5 +1,4 @@
 const User = require('../models/User');
-const bcrypt = require('bcryptjs');
 
 const { generateJWT } = require('../helpers/jwt');
 
@@ -19,9 +18,6 @@ const createUser = async( req, res ) => {
         }
 
         user = new User( req.body );
-
-        const salt = bcrypt.genSaltSync();
-        user.password = bcrypt.hashSync( password, salt );
 
         await user.save();
 
@@ -62,9 +58,9 @@ const loginUser = async( req, res ) => {
         }
 
         // Compare received password with password in db
-        const validPassword = bcrypt.compareSync( password, user.password );
 
-        if ( !validPassword ) {
+
+        if ( user.password !== password ) {
             return res.status( 400 ).json({
                 ok: false,
                 msg: 'Contraseña incorrecta'
