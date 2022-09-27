@@ -22,9 +22,9 @@ app.use( '/api/auth', require('./routes/auth') );
 app.use( '/api/profile', require('./routes/profile') );
 
 
-app.get( '*', ( req, res ) => {
-    res.sendFile( __dirname + './public/index.html')
-});
+// app.get( '*', ( req, res ) => {
+//     res.sendFile( __dirname + './public/index.html')
+// });
 
 
 
