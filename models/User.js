@@ -22,7 +22,7 @@ const UserSchema = Schema({
         type: String,
     },
     phoneNumber: {
-        type: Number,
+        type: String,
     }
 })
 

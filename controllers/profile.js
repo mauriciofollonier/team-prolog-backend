@@ -1,4 +1,5 @@
 const User = require('../models/User');
+const bcrypt = require('bcryptjs');
 
 const getProfile = async( req, res ) => {
   
@@ -15,7 +16,7 @@ const getProfile = async( req, res ) => {
                 msg: 'El usuario no existe'
             });
         }
-    
+        
         res.status( 201 ).json({
             ok: true,
             uid: user.id,
@@ -23,7 +24,7 @@ const getProfile = async( req, res ) => {
             name: user.name,
             bio: user.bio,
             email: user.email,
-            password: user.password,
+            // password: user.password,
             phoneNumber: user.phoneNumber,
         });
         
@@ -46,8 +47,6 @@ const updateProfile = async( req, res ) => {
 
         const user = await User.findById( userId );
 
-      
-    
         if( !user ) {
             return res.status( 400 ).json({
                 ok: false,
@@ -62,20 +61,39 @@ const updateProfile = async( req, res ) => {
             });
         }
 
-        const newProfile = {
+        let newProfile = {
         ...req.body,
         };
 
-        const updatedProfile = await 
-                    User.findByIdAndUpdate( 
-                        userId, 
-                        newProfile, 
-                        { new: true } 
-                    );
+
+        if ( (newProfile.password !== "") && (newProfile.password !== undefined) ) {
+
+            const salt = bcrypt.genSaltSync();
+
+            newProfile.password = bcrypt.hashSync( newProfile.password, salt );
+
+            await User.findByIdAndUpdate( 
+                            userId, 
+                            newProfile, 
+                            { new: true } 
+                        );
+
+        }
+            await  User.findByIdAndUpdate( 
+                userId, 
+                newProfile = {
+                avatar: req.body.avatar,
+                name: req.body.name,
+                bio: req.body.bio,
+                // password: req.body.password,
+                phoneNumber: req.body.phoneNumber,
+            }, 
+            { new: true } 
+        );
 
         res.status( 201 ).json({
             ok: true,
-            profile: updatedProfile
+            // profile: updatedProfile
         });
         
     } catch ( error ) {
