@@ -88,6 +88,7 @@ const updateProfile = async( req, res ) => {
                 bio: req.body.bio,
                 // password: req.body.password,
                 phoneNumber: req.body.phoneNumber,
+                google: user.google
             }, 
             { new: true } 
         );
