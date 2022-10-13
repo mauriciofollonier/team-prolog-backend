@@ -26,6 +26,7 @@ const getProfile = async( req, res ) => {
             email: user.email,
             // password: user.password,
             phoneNumber: user.phoneNumber,
+            google: user.google
         });
         
     } catch ( error ) {

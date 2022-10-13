@@ -5,7 +5,7 @@ const { generateJWT } = require('../helpers/jwt');
 
 const createUser = async( req, res ) => {
     
-    const { email, password } = req.body;
+    const { email, password, google } = req.body;
 
     try {
 
@@ -32,7 +32,8 @@ const createUser = async( req, res ) => {
             ok: true,
             uid: user.id,
             name: user.name,
-            token
+            token,
+            google: user.google
         });
         
     } catch ( error ) {

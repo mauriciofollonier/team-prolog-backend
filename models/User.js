@@ -23,6 +23,9 @@ const UserSchema = Schema({
     },
     phoneNumber: {
         type: String,
+    },
+    google:{
+        type: Boolean, default: false
     }
 })
 
